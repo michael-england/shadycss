@@ -266,8 +266,9 @@ class StyleTransformer {
         selector = selector.replace(SLOTTED_PAREN, (m, paren) => ` > ${paren}`);
       }
     }
-    selector = selector.replace(DIR_PAREN, (m, before, dir) =>
-      `[dir="${dir}"] ${before}, ${before}[dir="${dir}"]`);
+    if (selector.indexOf(':dir') > -1)
+      selector = selector.replace(DIR_PAREN, (m, before, dir) =>
+        `[dir="${dir}"] ${before}, ${before}[dir="${dir}"]`);
     return {value: selector, combinator, stop};
   }
 
